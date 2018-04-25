@@ -1,20 +1,23 @@
 import org.sql2o.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Sighting{
-    private String mName;
-    private String mLocation;
+    private String name;
+    private String location;
+    private int id;
 
     public Sighting(String name, String location){
-        this.mName = name;
-        this.mLocation = location;
+        this.name = name;
+        this.location = location;
     }
 
     public String getName(){
-        return mName;
+        return name;
     }
 
     public String getLocation(){
-        return mLocation;
+        return location;
     }
 
     @Override
@@ -30,7 +33,26 @@ public class Sighting{
     public void save(){
         try(Connection con = DB.sql2o.open()){
             String sql = "INSERT INTO sightings (name, location) VALUES (:name, :location)";
-            con.createQuery(sql).addParameter("name", this.mName).addParameter("location", this.mLocation).executeUpdate();
+            this.id = (int) con.createQuery(sql, true).addParameter("name", this.name).addParameter("location", this.location).executeUpdate().getKey();
+        }
+    }
+
+    public int getId(){
+        return id;
+    }
+
+    public static List<Sighting> all(){
+        String sql = "SELECT * FROM sightings";
+        try(Connection con = DB.sql2o.open()){
+            return con.createQuery(sql).executeAndFetch(Sighting.class);
+        }
+    }
+
+    public static Sighting find(int id) {
+        try(Connection con = DB.sql2o.open()){
+            String sql = "SELECT * FROM sightings where id = :id";
+            Sighting sighting = con.createQuery(sql).addParameter("id", id).executeAndFetchFirst(Sighting.class);
+            return sighting;
         }
     }
 }
