@@ -6,10 +6,12 @@ public class Sighting{
     private String name;
     private String location;
     private int id;
+    private int animalId;
 
-    public Sighting(String name, String location){
+    public Sighting(String name, String location, int animalId){
         this.name = name;
         this.location = location;
+        this.animalId = animalId;
     }
 
     public String getName(){
@@ -18,6 +20,10 @@ public class Sighting{
 
     public String getLocation(){
         return location;
+    }
+
+    public int getAnimalId(){
+        return animalId;
     }
 
     @Override
@@ -32,8 +38,8 @@ public class Sighting{
 
     public void save(){
         try(Connection con = DB.sql2o.open()){
-            String sql = "INSERT INTO sightings (name, location) VALUES (:name, :location)";
-            this.id = (int) con.createQuery(sql, true).addParameter("name", this.name).addParameter("location", this.location).executeUpdate().getKey();
+            String sql = "INSERT INTO sightings (name, location, animalId) VALUES (:name, :location, :animalId)";
+            this.id = (int) con.createQuery(sql, true).addParameter("name", this.name).addParameter("location", this.location).addParameter("animalId", this.animalId).executeUpdate().getKey();
         }
     }
 
