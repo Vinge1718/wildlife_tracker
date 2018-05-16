@@ -1,12 +1,14 @@
 import org.sql2o.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Timestamp;
 
 public class Sighting{
     private String name;
     private String location;
     private int id;
     private int animalId;
+    private Timestamp lastSeen;
 
     public Sighting(String name, String location, int animalId){
         this.name = name;
@@ -38,7 +40,7 @@ public class Sighting{
 
     public void save(){
         try(Connection con = DB.sql2o.open()){
-            String sql = "INSERT INTO sightings (name, location, animalId) VALUES (:name, :location, :animalId)";
+            String sql = "INSERT INTO sightings (name, location, animalId, lastseen) VALUES (:name, :location, :animalId, now())";
             this.id = (int) con.createQuery(sql, true).addParameter("name", this.name).addParameter("location", this.location).addParameter("animalId", this.animalId).executeUpdate().getKey();
         }
     }
@@ -59,6 +61,17 @@ public class Sighting{
             String sql = "SELECT * FROM sightings where id = :id";
             Sighting sighting = con.createQuery(sql).addParameter("id", id).executeAndFetchFirst(Sighting.class);
             return sighting;
+        }
+    }
+
+    public Timestamp getLastSeen(){
+        return lastSeen;
+    }
+
+    public void delete(){
+        try(Connection con = DB.sql2o.open()){
+            String sql = "DELETE FROM sightings WHERE id = :id;";
+            con.createQuery(sql).addParameter("id", this.id).executeUpdate();
         }
     }
 }
