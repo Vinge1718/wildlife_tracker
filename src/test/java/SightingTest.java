@@ -1,6 +1,10 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.sql2o.*;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.text.DateFormat;
+import java.util.Arrays;
 
 public class SightingTest {
 
@@ -65,10 +69,20 @@ public class SightingTest {
 
     @Test
     public void find_findObjectWithId(){
-        Sighting testSighting =new Sighting("John", "North Forest", 1);
+        Sighting testSighting = new Sighting("John", "North Forest", 1);
         testSighting.save();
         Sighting secondSighting = new Sighting("Jane", "SE Forest", 2);
         secondSighting.save();
         assertEquals(Sighting.find(secondSighting.getId()), secondSighting);
     }
+
+    @Test
+    public void sighting_registersTheTimeOfSighting(){
+        Sighting testSighting = new Sighting("John", "North Forest", 1);
+        testSighting.save();
+        Timestamp savedTestSighting = Sighting.find(testSighting.getId()).getLastSeen();
+        Timestamp rightNow = new Timestamp( new Date().getTime());
+        assertEquals(savedTestSighting.getDay(), rightNow.getDay());
+    }
+
 }
