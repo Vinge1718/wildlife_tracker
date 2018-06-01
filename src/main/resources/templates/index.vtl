@@ -1,27 +1,96 @@
 <div class="container">
 
-    <h2>Wildlife Tracker</h2>
+    <h1>Wildlife Tracker</h1>
     <br>
     <div class="row">
 
-        <div class="col-md-5" col-xs-12>
-            <p>CONTENT</p>
+        <div class="col-md-12" col-xs-12>
+            <p>Choose which category of animal you just spotted: Endangered or Unprotected</p>
+            <select id="category">
+                <option value="#form1">Unprotected or Endangered</option>
+                <option value="#form2">Unprotected Animals</option>
+                <option value="#form3">Endangered Animals</option>
+            </select>
+
+            <div class="animal-form-centered">
+                <form action="/animals" method="post" class="form-style-7" id="form2">
+                    <p>Add an Unprotected Animal:</p>
+
+                    <label for="location"><scan>Choose the Location of spotted animal</scan></label>
+                    <select id='location' name='location' type='text'>
+                        <option value="Northern Forest">Northern Forest</option>
+                        <option value="Central Forest">Central Forest</option>
+                        <option value="Southern Forest">Southern Forest</option>
+                        <option value="Eastern part of the Forest">Eastern part of the Forest</option>
+                        <option value="Western part of the Forest">"Western part of the Forest"</option>
+                    </select>
+                    <br>
+                    <ul>
+                        <li>
+                            <label for="rangerName">Ranger Name</label>
+                            <input type="text" name="rangerName" maxlength="100">
+                            <span>Ranger Reporting a Sighting</span>
+                        </li>
+
+                        <li>
+                            <label for="animalName">Unprotected Animal Name</label>
+                            <input type="animalName" name="animalName" maxlength="100">
+                            <span>Unprotected Animal Name</span>
+                        </li>
+                    </ul>
+                </form>
+
+                <form action="/animals" method="post" class="form-style-7" id="form3">
+
+                    <p>Endangered Animal Form</p>
+                    <label for="location"><scan>Indicate Location of Sighting</scan></label>
+                    <select id='location' name='location' type='text'>
+                        <option value="Northern Forest">Northern Forest</option>
+                        <option value="Central Forest">Central Forest</option>
+                        <option value="Southern Forest">Southern Forest</option>
+                        <option value="Eastern part of the Forest">Eastern part of the Forest</option>
+                        <option value="Western part of the Forest">"Western part of the Forest"</option>
+                    </select>
+                    <br>
+                    <ul>
+                        <li>
+                            <label for="rangerName">Ranger Name</label>
+                            <input type="text" name="rangerName" maxlength="100">
+                            <span>Ranger Reporting a Sighting</span>
+                        </li>
+
+                        <li>
+                            <label for="animalName">Endangered Animal Name</label>
+                            <input type="animalName" name="animalName" maxlength="100">
+                            <span>Endangered Animal Name</span>
+                        </li>
+
+                        <li>
+                            <label for="age">Endangered Animal Age</label>
+                            <input type="age" name="age" maxlength="100">
+                            <span>Endangered Animal Age</span>
+                        </li>
+
+                        <li>
+                            <label for="health">Health of Spotted Animal</label>
+                            <input type="health" name="health" maxlength="100">
+                            <span>What's the health condition of spotted animal</span>
+                        </li>
+                        <li>
+                            <input type="submit" value="Save Animal" >
+                        </li>
+                    </ul>
+                </form>
+            </div>
+
         </div>
 
-        <div class="col-md-2" col-xs-12 class="line">
-            <p>CONTENT</p>
-        </div>
-
-
-        <div class="col-md-5" col-xs-12>
-            <p>CONTENT</p>
+        <div class="col-md-12" col-xs-12>
+            <p>Spotted animals will be populated here!</p>
         </div>
 
     <hr>
 
-    <br>
-    
-    <a href="">link</a>
     <br>
     <a href="">link</a>
 </div>
