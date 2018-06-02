@@ -22,7 +22,37 @@ public class App{
 
         get("/", (request, response) -> {
             Map<String, Object> model = new HashMap<String, Object>();
+            model.put("animals", Animal.all());
+            model.put("sighting", Sighting.all());
             model.put("template", "templates/index.vtl");
+            return new ModelAndView(model, layout);
+        }, new VelocityTemplateEngine());
+
+        post("/unprotectedAnimalSighting", (request, response) ->{
+            Map<String, Object> model = new HashMap<String, Object>();
+            String location = request.queryParams("location");
+            String rangerName = request.queryParams("rangerName");
+            String animalName = request.queryParams("animalName");
+            Animal newAnimal = new Animal(animalName);
+            newAnimal.save();
+            Sighting newSighting = new Sighting(rangerName, location, newAnimal.getId());
+            newSighting.save();
+            response.redirect("/");
+            return new ModelAndView(model, layout);
+        }, new VelocityTemplateEngine());
+
+        post("/endangeredAnimalSighting", (request, response) ->{
+            Map<String, Object> model = new HashMap<String, Object>();
+            String location = request.queryParams("location");
+            String rangerName = request.queryParams("rangerName");
+            String animalName = request.queryParams("animalName");
+            String age = request.queryParams("age");
+            String health = request.queryParams("health");
+            EndangeredAnimal newAnimal = new EndangeredAnimal(animalName, health, age);
+            newAnimal.save();
+            Sighting newSighting = new Sighting(rangerName, location, newAnimal.getId());
+            newSighting.save();
+            response.redirect("/");
             return new ModelAndView(model, layout);
         }, new VelocityTemplateEngine());
 
