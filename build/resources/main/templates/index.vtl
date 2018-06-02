@@ -7,13 +7,13 @@
         <div class="col-md-12" col-xs-12>
             <p>Choose which category of animal you just spotted: Endangered or Unprotected</p>
             <select id="category">
-                <option value="#form1">Unprotected or Endangered</option>
+                <option value="#form1">Select if spotted animal is Unprotected or Endangered</option>
                 <option value="#form2">Unprotected Animals</option>
                 <option value="#form3">Endangered Animals</option>
             </select>
 
             <div class="animal-form-centered">
-                <form action="/animals" method="post" class="form-style-7" id="form2">
+                <form action="/unprotectedAnimalSighting" method="post" class="form-style-7" id="form2">
                     <p>Add an Unprotected Animal:</p>
 
                     <label for="location"><scan>Choose the Location of spotted animal</scan></label>
@@ -37,10 +37,15 @@
                             <input type="animalName" name="animalName" maxlength="100">
                             <span>Unprotected Animal Name</span>
                         </li>
+
+                        <li>
+                            <input type="submit" value="Save Animal" >
+                        </li>
+
                     </ul>
                 </form>
 
-                <form action="/animals" method="post" class="form-style-7" id="form3">
+                <form action="/endangeredAnimalSighting" method="post" class="form-style-7" id="form3">
 
                     <p>Endangered Animal Form</p>
                     <label for="location"><scan>Indicate Location of Sighting</scan></label>
@@ -68,14 +73,15 @@
                         <li>
                             <label for="age">Endangered Animal Age</label>
                             <input type="age" name="age" maxlength="100">
-                            <span>Endangered Animal Age</span>
+                            <span>Endangered Animals age can either be "newborn", "adult" or "young"</span>
                         </li>
 
                         <li>
                             <label for="health">Health of Spotted Animal</label>
                             <input type="health" name="health" maxlength="100">
-                            <span>What's the health condition of spotted animal</span>
+                            <span>Endangered Animals health can either be "ill", "healthy" or "okay"</span>
                         </li>
+
                         <li>
                             <input type="submit" value="Save Animal" >
                         </li>
@@ -85,12 +91,23 @@
 
         </div>
 
+        <hr>
+
+        <br>
+
         <div class="col-md-12" col-xs-12>
-            <p>Spotted animals will be populated here!</p>
+            <h2>Spotted Animals!</h2>
+            <br>
+            <ol>
+                <li>
+                    #foreach($sighting in $sightings)
+                        -. <p>$sighting.getName()</p>
+                        -. <p>$sighting.getLocation()</p>
+                        -. <p>$sighting.getLastSeen()</p>
+                        -. <p></p>
+                        -. <p></p>
+                    #end
+                </li>
+            </ol>
         </div>
-
-    <hr>
-
-    <br>
-    <a href="">link</a>
 </div>

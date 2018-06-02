@@ -40,7 +40,7 @@ public class EndangeredAnimalTest {
     }
 
     @Test
-    public void save_returnsTrueIfDesccriptionIsSame(){
+    public void save_returnsTrueIfDescriptionIsSame(){
         EndangeredAnimal testEndangeredAnimal = new EndangeredAnimal("Lion", "healthy", "young");
         testEndangeredAnimal.save();
         assertTrue(EndangeredAnimal.all().get(0).equals(testEndangeredAnimal));
