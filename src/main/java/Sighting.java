@@ -41,7 +41,7 @@ public class Sighting{
     public void save(){
         try(Connection con = DB.sql2o.open()){
             String sql = "INSERT INTO sightings (name, location, animalId, lastseen) VALUES (:name, :location, :animalId, now())";
-            this.id = (int) con.createQuery(sql, true).addParameter("name", this.name).addParameter("location", this.location).addParameter("animalId", this.animalId).executeUpdate().getKey();
+            this.id = (int) con.createQuery(sql, true).addParameter("name", this.name).addParameter("location", this.location).addParameter("animalId", this.animalId).throwOnMappingFailure(false).executeUpdate().getKey();
         }
     }
 
@@ -52,14 +52,14 @@ public class Sighting{
     public static List<Sighting> all(){
         String sql = "SELECT * FROM sightings";
         try(Connection con = DB.sql2o.open()){
-            return con.createQuery(sql).executeAndFetch(Sighting.class);
+            return con.createQuery(sql).throwOnMappingFailure(false).executeAndFetch(Sighting.class);
         }
     }
 
     public static Sighting find(int id) {
         try(Connection con = DB.sql2o.open()){
             String sql = "SELECT * FROM sightings where id = :id";
-            Sighting sighting = con.createQuery(sql).addParameter("id", id).executeAndFetchFirst(Sighting.class);
+            Sighting sighting = con.createQuery(sql).addParameter("id", id).throwOnMappingFailure(false).executeAndFetchFirst(Sighting.class);
             return sighting;
         }
     }
