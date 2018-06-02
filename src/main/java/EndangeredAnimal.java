@@ -36,10 +36,18 @@ public class EndangeredAnimal extends Animal {
 
     @Override
     public void save(){
+        if ((!health.equals(EndangeredAnimal.HEALTH_1)
+            && !health.equals(EndangeredAnimal.HEALTH_2)
+            && !health.equals(EndangeredAnimal.HEALTH_3))
+            || (!age.equals(EndangeredAnimal.AGE_1)
+            && !age.equals(EndangeredAnimal.AGE_2)
+            && !age.equals(EndangeredAnimal.AGE_3))) {
+      throw new IllegalArgumentException("Please select from ill, okay, healthy or newborn, young, adult");
+  }
         try(Connection con = DB.sql2o.open()){
             String sql = "INSERT INTO animals (name, health, age) VALUES (:name, :health, :age)";
             this.id = (int) con.createQuery(sql, true).addParameter("name", this.name).addParameter("health", this.health
             ).addParameter("age", this.age).throwOnMappingFailure(false).executeUpdate().getKey();
-        }
+        } catch (IllegalArgumentException exception){}
     }
 }

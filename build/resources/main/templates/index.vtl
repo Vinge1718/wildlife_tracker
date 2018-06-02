@@ -4,10 +4,10 @@
     <br>
     <div class="row">
 
-        <div class="col-md-12" col-xs-12>
+        <div class="col-md-12 col-xs-12">
             <p>Choose which category of animal you just spotted: Endangered or Unprotected</p>
             <select id="category">
-                <option value="#form1">Select if spotted animal is Unprotected or Endangered</option>
+                <option value="#form1">Unprotected or Endangered</option>
                 <option value="#form2">Unprotected Animals</option>
                 <option value="#form3">Endangered Animals</option>
             </select>
@@ -95,19 +95,37 @@
 
         <br>
 
-        <div class="col-md-12" col-xs-12>
-            <h2>Spotted Animals!</h2>
-            <br>
-            <ol>
-                <li>
-                    #foreach($sighting in $sightings)
-                        -. <p>$sighting.getName()</p>
-                        -. <p>$sighting.getLocation()</p>
-                        -. <p>$sighting.getLastSeen()</p>
-                        -. <p></p>
-                        -. <p></p>
+        <div class="col-md-12 col-xs-12">
+
+            #if ($sightings)
+                <p>Animals Spotted:</p>
+                <ol>
+                    #foreach ($sighting in $sightings)
+                        <li>
+                            <p>-. Lieut.Ranger $sighting.getName() spotted a <strong>$AnimalClass.getAnimalName($sighting.getAnimalId())</strong></p>
+                            <p>-. The sighting was registred at $sighting.getLastSeen()</p>
+                            <p>-. The animal was around the $sighting.getLocation()</p>
+                            <p>-. The Animal Id was: $sighting.getAnimalId()</p>
+
+                            #if ($AnimalClass.getAnimalHealth($sighting.getAnimalId()))
+                              <p>-. $AnimalClass.getAnimalHealth($sighting.getAnimalId())</p>
+                            #else
+                              <p>N/A</p>
+                            #end
+
+                            #if ($AnimalClass.getAnimalAge($sighting.getAnimalId()))
+                              <p>-. $AnimalClass.getAnimalAge($sighting.getAnimalId())</p>
+                            #else
+                              <p>N/A</p>
+                            #end
+
+                        </li>
+                        <hr>
                     #end
-                </li>
-            </ol>
+                </ol>
+            #else
+                <p>No registred sightings!</p>
+            #end
+
         </div>
 </div>

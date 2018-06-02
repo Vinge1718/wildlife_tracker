@@ -7,10 +7,10 @@ $(function(){
         var formId = $(this).val();
         $(formId).show();
 
-        // function adjust_textarea(h) {
-        //     h.style.height = "12px";
-        //     h.style.height = (h.scrollHeight)+"px";
-        // }
+        function adjust_textarea(h) {
+            h.style.height = "12px";
+            h.style.height = (h.scrollHeight)+"px";
+        }
     });
 
 

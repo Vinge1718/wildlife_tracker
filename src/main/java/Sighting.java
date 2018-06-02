@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.Timestamp;
 
+
 public class Sighting{
     private String name;
     private String location;
